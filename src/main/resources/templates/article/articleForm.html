@@ -58,7 +58,7 @@
 
         <label>Who is the author of the article?</label>
 
-        <select name="authors" th:field="*{authors}" multiple>
+        <select name="authors" th:field="*{authors}">
             <option th:each="a: ${authors}" th:text="${a.getName()}" th:value="${a.getName()}"></option>
         </select>
         <span class="validationError"

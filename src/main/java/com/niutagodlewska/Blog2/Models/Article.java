@@ -1,5 +1,6 @@
 package com.niutagodlewska.Blog2.Models;
 
+import com.niutagodlewska.Blog2.Validators.ValidateContentInterface;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Article {
 
     @Id

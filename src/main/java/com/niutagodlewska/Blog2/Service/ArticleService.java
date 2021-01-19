@@ -119,12 +119,16 @@ public class ArticleService {
 
     public void editArticle(Article article, long id) {
         Optional<Article> a = articleRepo.findById(id);
-        Article post = a.get();
-        if (post != null) {
 
+        Article post = null;
+        if (a.isPresent()) {
+            post = a.get();
             post.setPostContent(article.getPostContent());
             post.setAuthors(article.getAuthors());
             post.setTags(article.getTags());
+        }
+        else{
+            System.out.println("no problemo");
         }
         articleRepo.save(post);
     }
