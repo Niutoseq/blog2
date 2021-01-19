@@ -1,0 +1,12 @@
+#main-intro {
+    position: relative;
+    top: 10vh;
+    height: 70vh;
+    width: 60%;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+#main-intro h1 {
+    font-size: 4em;
+}

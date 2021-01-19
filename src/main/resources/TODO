@@ -1,0 +1,27 @@
+(3 pkt) - Relacyjna baza danych np. PostgresSQL, HyperSQL
+(1 pkt) Rejestracja użytkownika
+(1 pkt) Możliwość dodania tagu do postu lub korzystania z istniejących (poprzez wyszukiwanie czy listę).
+(1 pkt) Usunięcie postu przez zalogowanego użytkownika (któregokolwiek z autorów)
+(1 pkt) Wczytanie do bazy danych danych z podanego pliku .csv.
+(3 pkt) Styl aplikacji pod względem CSS oraz kodu Java
+(2 pkt) Spring Security
+(1 pkt) Utworzenie konta administratora dla całego serwisu
+(0.5 pkt) Możliwość usunięcia komentarza po zalogowaniu się użytkownika
+(1 pkt) Możliwość dodawania/usuwania lub edycji posta/komentarza z poziomu administratora
+(2 pkt) Walidacja pól formularza, zwłaszcza rejestracyjnego i poziomu siły hasła
+(1 pkt) Wyświetlenie wszystkich postów nie wymagajacych logowania przez użytkownika wraz z sortowaniem pól
+(1 pkt) Dodanie postu przez zarejestrowanego użytkownika. Dodanie autora poprzez wyszukanie istniejących lub poprzez listę. W przypadku braku takiego autora, to wyświetlenie odpowiedniego komunikatu.
+(1 pkt) Wyświetlenie postów oraz komentarzy po zalogowaniu się użytkownika
+(1 pkt) Javascript + CSS animacja
+
+(2 pkt) Możliwość dodania komentarza. Po dodaniu komentarza powinna być możliwość utworzenia użytkownika o danym nicku (domyślnie tworzenie komentarzy nie musi się odbywać po zalogowaniu się użytkownika). W przypadku dodania komentarza po zalogowaniu się autora, użyty powinien zostać nick składający się z jego imienia i nazwiska (pierwsza litera imienia + nazwisko).
+
+
+(1 pkt) Edycja postu przez zalogowanego użytkownika (któregokolwiek z autorów)
+(0.5 pkt) Możliwość edycji komentarza po zalogowaniu się użytkownika
+(1 pkt) Wyświetlanie wyłącznie postów danego autora po zalogowaniu
+(1 pkt) Importowanie oraz eksportowanie danych z pliku .csv z poziomu administratora
+(1 pkt) Deploy aplikacji na serwer zewnętrzny (na przykład w serwisie Heroku).
+(1 pkt) Wysyłanie maila potwierdzającego rejestrację użytkownika.
+
+

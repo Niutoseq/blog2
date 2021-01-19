@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Bloginator</title>
+
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" type="text/css" media="(min-width: 760px)" href="/styledesktop.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap links -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="/myscripts.js"></script>
+</head>
+<body>
+<nav id="up" class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="/home">NG</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/articles">Read<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Leaderboard
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/#">Leaderboard for authors</a>
+                    <a class="dropdown-item" href="/#">Leaderboard for users</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Search
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/#">Search by post or tag</a>
+                    <a class="dropdown-item" href="/#">Search by author</a>
+                    <a class="dropdown-item" href="/#">Search a user</a>
+                </div>
+            </li>
+            <li sec:authorize="isAuthenticated()"><a class="nav-link" href="/logout">Logout</a></li>
+            <li style="color: black;" sec:authorize="isAuthenticated()"><span class="nav-link" sec:authentication="name"></span></li>
+            <li sec:authorize="!isAuthenticated()"><a class="nav-link" href="/login">Login</a></li>
+            <li sec:authorize="!isFullyAuthenticated()"><a class="nav-link" href="/register">Register</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="container">
+        <div class="one-post">
+            <span class="author-name" th:each="a, iterStart : ${postDetail.authors}" th:text="${!iterStart.last} ? ${a.getName()} + ', ' : ${a.getName()}"></span>
+            <p th:text="${postDetail.getPostContent()}"></p>
+            Tags: <span class="tags" th:each="a, iterStart : ${postDetail.tags}" th:text="${!iterStart.last} ? ${a.getTag()} + ', ' : ${a.getTag()}"></span>
+            <div class="article-config">
+                <a sec:authorize="hasAuthority('ADMIN')" class="delete-btn" onclick="return confirm('Are you sure you want to delete this post?')" th:href="@{/articles/delete/{id}(id=${postDetail.getId()})}">Delete</a>
+                <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/articles/edit/{id}(id=${postDetail.getId()})}">Edit</a>
+            </div>
+        </div>
+        <div th:if="${comments!=null}">
+            <div class="comment-show">
+                <h2>Comments:</h2>
+                <div class="one-comment" th:each="comment : ${comments}">
+                    <span class="author-name" th:text="${comment.username}"></span>
+                    <!--                <span th:text="${comment.idArticle}"></span>-->
+                    <span th:text="${comment.commentContent}"></span>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/comment/edit/{id}(id=${comment.getId()})}">EDIT</a>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/comment/remove/{id}(id=${comment.getId()})}" class="delete-btn"  onclick="return confirm('Do you really want to delete?')">DELETE</a>
+                </div>
+            </div>
+            <a sec:authorize="isAuthenticated()" th:href="@{/comment/add/{id}(id=${postDetail.getId()})}"><div class="custom-btn add-new-btn">Add comment</div></a>
+            <a sec:authorize="!isAuthenticated()" href="/login"><div class="custom-btn add-new-btn">Login to add comment</div></a>
+        </div>
+
+    </div>
+</main>
+
+
+
+<!-- Booststrap-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
